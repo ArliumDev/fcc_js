@@ -1,3 +1,4 @@
+// Declaring principal variables
 let xp = 0;
 let health = 100;
 let gold = 50;
@@ -6,6 +7,7 @@ let fighting;
 let monsterHealth;
 let inventory = ["stick"];
 
+// Assigning HTML elements to variables to work with them later
 const button1 = document.querySelector('#button1');
 const button2 = document.querySelector('#button2');
 const button3 = document.querySelector('#button3');
@@ -16,6 +18,8 @@ const goldText = document.querySelector('#goldText');
 const monsterStats = document.querySelector('#monsterStats');
 const monsterName = document.querySelector('#monsterName');
 const monsterHealthText = document.querySelector('#monsterHealth');
+
+// Declaring "weapons", "monsters" and "locations" objects with their data
 const weapons = [
     {name: 'stick', power: 5},
     {name: 'dagger', power: 30},
@@ -95,6 +99,7 @@ button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
 
+// Function "update" that is called every time you move to another location, changing the text and functionality of the buttons depending on the location you are at the moment (taking account of the "locations" objects' values)
 function update(location) {
     monsterStats.style.display = "none";
     button1.innerText = location["button text"][0];
@@ -106,6 +111,7 @@ function update(location) {
     text.innerText = location.text;
 }
 
+// Functions that takes "update" function to change the value of button text and button functions depending on the index of "locations" we passed to it
 function goTown() {
     update(locations[0]);
 }
@@ -118,6 +124,7 @@ function goCave() {
     update(locations[2]);
 }
 
+// Function that works when you are at the store to buy health if you have enough money
 function buyHealth() {
     if (gold >= 10) {
         gold -= 10;
@@ -129,6 +136,7 @@ function buyHealth() {
     }
 }
 
+/* Function that allows you buy weapons if your inventory is less than the available weapons to buy and if your gold is enough to buy them. Every new weapon will be placed next to the current ones you already have*/
 function buyWeapon() {
     if (currentWeapon < weapons.length - 1) {
       if (gold >= 30) {
@@ -149,6 +157,7 @@ function buyWeapon() {
     }
   }
 
+  /* Function that allows you sell your weapons if your inventory has at least more than just 1 weapon. If you only have one, you can't sell it*/ 
   function sellWeapon() {
     if (inventory.length > 1) {
       gold += 15;
@@ -161,6 +170,7 @@ function buyWeapon() {
     }
   }
   
+  // Functions that assign the index of each monster in the "monsters" object, and call the goFight function
   function fightSlime() {
     fighting = 0;
     goFight();
@@ -176,6 +186,7 @@ function buyWeapon() {
     goFight();
   }
   
+  // Function that updates the location, text and functionalities of the buttons, and sets the monster info
   function goFight() {
     update(locations[3]);
     monsterHealth = monsters[fighting].health;
@@ -205,7 +216,8 @@ function buyWeapon() {
       currentWeapon--;
     }
   }
-  
+
+  // Function that sets the monster attack value based on some arithmetical operations with some random values to have some variety and returns it if it is greater than 0
   function getMonsterAttackValue(level) {
     const hit = (level * 5) - (Math.floor(Math.random() * xp));
     console.log(hit);
@@ -216,10 +228,12 @@ function buyWeapon() {
     return Math.random() > .2 || health < 20;
   }
   
+  // Function that allow us to dogde the enemy's attack
   function dodge() {
     text.innerText = "You dodge the attack from the " + monsters[fighting].name;
   }
   
+  // Function that make you win gold depending on an arithmetic operation taking in account the monster level, and also makes you win XP depending on the monster's one
   function defeatMonster() {
     gold += Math.floor(monsters[fighting].level * 6.7);
     xp += monsters[fighting].level;
@@ -227,7 +241,7 @@ function buyWeapon() {
     xpText.innerText = xp;
     update(locations[4]);
   }
-  
+  // Functions that update the location, text and functionalities of the buttons depending on if you win or lose
   function lose() {
     update(locations[5]);
   }
@@ -236,6 +250,7 @@ function buyWeapon() {
     update(locations[6]);
   }
   
+  // Function that restart all the game either you win or lose
   function restart() {
     xp = 0;
     health = 100;
@@ -248,6 +263,7 @@ function buyWeapon() {
     goTown();
   }
   
+  // A group of functions that create a secret mini game that makes you to win some gold if you win, or lose health if you lose it
   function easterEgg() {
     update(locations[7]);
   }

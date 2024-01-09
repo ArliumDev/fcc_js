@@ -1,0 +1,17 @@
+1. Aparece un texto indicándonos que el monstruo ataca
+
+2. Aparece otro texto indicándonos que nosotros atacamos con nuestro arma actual
+
+3. Nuestra vida se resta al resultado de llamar a la función "getMonsterAttackValue" pasándole como parámetro el nivel del monstruo con el que estamos luchando.
+
+4. Se declara un if statement que devolverá true si se cumple isMonsterHit:
+
+- Si tirando un Math.random, el valor es mayor a .2 (dando un 80% de éxito), devolverá true
+
+- O, en caso de que la vida del monstruo sea menor a 20, devolverá true
+
+5. Si se cumple lo mencionado en el punto anterior, a la vida del monstruo le restaremos el poder de nuestro arma actual + un valor aleatorio multiplicado por nuestra vida redondeado hacia abajo, y sumado a 1 para que al menos haya 1 punto de daño como mínimo. En cambio, si no se cumple, no le haremos daño al monstruo y aparecerá un texto indicándonos que hemos fallado.
+
+6. Se actualiza nuestra vida y la del monstruo, y se comprueba si nuestra vida es menor o igual a 0; de ser así, habremos perdido y se ejecutará la función "lose". En cambio, si la vida del monstruo es menor o igual a 0, se comprueba si el monstruo con el que hemos luchado es el dragón. Si hemos matado al dragón, habremos ganado y se ejecuta la función "winGame". Si no es el dragón, habremos derrotado a uno de los otros monstruos y se ejecutará la función "defeatMonster"
+
+7. Este último bloque tira un valor aleatorio y comprueba si es menos o igual a 0.1, y además comprueba si nuestro inventario no es de 1. De ser así, se nos romperá el arma actual y se eliminará del inventario. 
